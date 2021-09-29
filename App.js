@@ -1,13 +1,53 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
-import exampleImage from './assets/elzgamestudio.png';
-
-const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
+import {Text, View, Image, TextInput, } from 'react-native';
+import elzgamelogo from './assets/elzgamestudio.png';
+import rumah from './assets/rumah.jpg';
 
 const App = () => {
+  return <StylingReactNativeComponent />;
+};
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: 5,
+  },
+});
+
+const StylingReactNativeComponent = () => {
   return (
     <View>
-      <View style={{width: 1000, height: 70, backgroundColor: '#0984e3', marginBottom: 30}}>
+      <Text style={styles.text}>Styling Component</Text>
+      <Barang />
+    </View>
+  );
+};
+
+const Barang = () => {
+  return (
+    <View style={{marginTop: 10, alignItems: 'center', padding:20, backgroundColor: '#d1d8e0', marginHorizontal: 20, borderRadius: 15}}>
+      <Image source={rumah} style={{width: 200, height: 100}} />
+      <Text style={{fontSize: 25, fontWeight: 'bold', marginTop: 10}}> Rumah Mewah 3 Miliar </Text>
+      <Text style={{fontSize: 20, fontStyle: 'italic'}}> Purbalingga </Text>
+      <View style={{backgroundColor:'#45aaf2', width: 200, padding: 15, alignItems: 'center', borderRadius: 30, marginTop: 20}}>
+        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}> Detail </Text>
+      </View>
+    </View>
+  );
+};
+
+const SampleComponent = () => {
+  return (
+    <View>
+      <View
+        style={{
+          width: 1000,
+          height: 70,
+          backgroundColor: '#0984e3',
+          marginBottom: 30,
+        }}>
         <Photo />
       </View>
       <Profile />
@@ -32,7 +72,7 @@ const Home = () => {
 const Photo = () => {
   return (
     <View>
-      <Image source={{uri: exampleImageUri}} style={{width: 140, height: 70}} />
+      <Image source={elzgamelogo} style={{width: 140, height: 70}} />
       {/* <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}> ELZGAME STUDIO </Text> */}
     </View>
   );
