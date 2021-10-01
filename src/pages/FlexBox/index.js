@@ -2,7 +2,33 @@ import React, {Component} from 'react';
 import {Text, View, ScrollView, StyleSheet, Image} from 'react-native';
 
 class FlexBox extends Component {
+  constructor(props) {
+    super(props);
+    console.log('===> constructor');
+    this.state = {
+      subscriber: 100,
+    }
+  }
+
+  componentDidMount() {
+    console.log('===> component did mount');
+    setTimeout(() => {
+      this.setState({
+        subscriber: 10000
+      });
+    }, 2000);
+  }
+
+  componentDidUpdate() {
+    console.log('===> component did update')
+  }
+
+  componentWillUnmount() {
+    console.log('===> component will unmount');
+  }
+
   render() {
+    console.log('===> render');
     return (
       <View>
         <ScrollView>
@@ -63,7 +89,7 @@ class FlexBox extends Component {
               <Text style={styles.text}>Channel</Text>
             </View>
           </View>
-          
+
           <View style={{padding: 10, flexDirection: 'row'}}>
             <Image
               source={{
@@ -73,12 +99,22 @@ class FlexBox extends Component {
             />
             <View style={{marginLeft: 10, justifyContent: 'center'}}>
               <Text style={styles.text}>SuryaElz</Text>
-              <Text style={styles.text}>1M Subscriber</Text>
+              <Text style={styles.text}>{this.state.subscriber} Subscriber</Text>
             </View>
           </View>
 
-          <View style={{backgroundColor: 'red', flex: 1, height: 150, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}> SUBSCRIBE </Text>
+          <View
+            style={{
+              backgroundColor: 'red',
+              flex: 1,
+              height: 150,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}>
+              {' '}
+              SUBSCRIBE{' '}
+            </Text>
           </View>
         </ScrollView>
       </View>
