@@ -1,17 +1,14 @@
 import React from 'react';
-import {Text, Image, View, StyleSheet} from 'react-native';
-import cart from './assets/cart.jpg';
+import {View, Text, Image, StyleSheet} from 'react-native';
+import cart from '../../assets/icons/cart.jpg';
 
-const PositionReactNative = () => {
+const Cart = (props) => {
   return (
-    <View style={{padding: 20, alignItems: 'center'}}>
+    <View style={styles.viewCartWrapper}>
       <Text style={styles.text}> Keranjang Belanja </Text>
       <View>
-        <Image
-          source={cart}
-          style={{width: 100, height: 100, marginTop: 10}}
-        />
-        <Text style={styles.notif}> 3 </Text>
+        <Image source={cart} style={styles.imageCart} />
+        <Text style={styles.notif}> {props.quantity} </Text>
       </View>
     </View>
   );
@@ -38,6 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     color: 'white',
   },
+  imageCart: {width: 100, height: 100, marginTop: 10},
+  viewCartWrapper: {padding: 20, alignItems: 'center'},
 });
 
-export default PositionReactNative;
+export default Cart;

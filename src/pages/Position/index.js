@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Image, View, StyleSheet} from 'react-native';
-import chart from '../../assets/icons/chart.jpg';
+import cart from '../../assets/icons/cart.jpg';
 
 const PositionReactNative = () => {
   return (
@@ -8,7 +8,7 @@ const PositionReactNative = () => {
       <Text style={styles.text}> Keranjang Belanja </Text>
       <View>
         <Image
-          source={chart}
+          source={cart}
           style={{width: 100, height: 100, marginTop: 10}}
         />
         <Text style={styles.notif}> 3 </Text>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  chartWrapper: {
+  cartWrapper: {
     position: 'relative',
     borderColor: 'black',
     borderWidth: 1,

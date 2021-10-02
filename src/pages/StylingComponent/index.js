@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
         <Image source={rumah} style={{width: 200, height: 100}} />
         <Text style={{fontSize: 25, fontWeight: 'bold', marginTop: 10}}> Rumah Mewah 3 Miliar </Text>
         <Text style={{fontSize: 20, fontStyle: 'italic'}}> Purbalingga </Text>
-        <View style={{backgroundColor:'#45aaf2', width: 200, padding: 15, alignItems: 'center', borderRadius: 30, marginTop: 20}}>
-          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}> Detail </Text>
+        <View style={{backgroundColor:'green', width: 200, padding: 15, alignItems: 'center', borderRadius: 30, marginTop: 20}}>
+          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}> Beli </Text>
         </View>
       </View>
     );
