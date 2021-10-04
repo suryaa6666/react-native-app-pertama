@@ -1,7 +1,8 @@
+import Axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Button, Image} from 'react-native';
 
-const CallVanillaAPI = () => {
+const CallAxiosAPI = () => {
   // useEffect(() => {
   // GET
   // fetch('https://reqres.in/api/users/2')
@@ -35,12 +36,11 @@ const CallVanillaAPI = () => {
   });
 
   const getData = () => {
-    fetch('https://reqres.in/api/users/2')
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        setDataUser(json.data);
-      });
+    Axios.get('https://reqres.in/api/users/3')
+      .then(result => {
+        setDataUser(result.data.data);
+      })
+      .catch(err => console.log('Error : ', err));
   };
 
   const [postUserData, setPostUserData] = useState({
@@ -49,23 +49,31 @@ const CallVanillaAPI = () => {
   });
 
   const postData = () => {
+      
     const dataBody = {
       name: 'morpheus',
       job: 'leader',
     };
     //POST
-    fetch('https://reqres.in/api/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataBody),
-    })
-      .then(response => response.json())
-      .then(json => {
-        console.log('post response:', json);
-        setPostUserData(json);
-      });
+    // fetch('https://reqres.in/api/users', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(dataBody),
+    // })
+    //   .then(response => response.json())
+    //   .then(json => {
+    //     console.log('post response:', json);
+    //     setPostUserData(json);
+    //   });
+
+    Axios.post('https://reqres.in/api/users', dataBody)
+      .then(result => {
+        console.log(result.data);
+        setPostUserData(result.data);
+      })
+      .catch(err => console.log('Error : ', err));
   };
 
   return (
@@ -104,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CallVanillaAPI;
+export default CallAxiosAPI;
