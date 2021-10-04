@@ -1,29 +1,28 @@
 {
-  "posts": [
+  "users": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "nama": "Surya",
+      "email": "suryaelidanto@gmail.com",
+      "bidang": "Programmer"
     },
     {
-      "title": "suryaelidanto",
-      "author": "ganteng",
+      "nama": "",
+      "email": "",
+      "bidang": "",
       "id": 2
     },
     {
-      "id": 3,
-      "title": "suryaelidanto",
-      "author": "gantengbanget"
-    }
-  ],
-  "comments": [
+      "nama": "sadasdasd",
+      "email": "asd",
+      "bidang": "dsds",
+      "id": 3
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "nama": "surya",
+      "email": "suryaelz@keren.com",
+      "bidang": "programmer",
+      "id": 4
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
