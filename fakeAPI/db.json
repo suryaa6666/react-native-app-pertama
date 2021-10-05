@@ -7,12 +7,6 @@
       "bidang": "Programmer"
     },
     {
-      "nama": "",
-      "email": "",
-      "bidang": "",
-      "id": 2
-    },
-    {
       "nama": "sadasdasd",
       "email": "asd",
       "bidang": "dsds",
@@ -23,6 +17,12 @@
       "email": "suryaelz@keren.com",
       "bidang": "programmer",
       "id": 4
+    },
+    {
+      "nama": "cintara",
+      "email": "cintara@gmail.com",
+      "bidang": "Desainer",
+      "id": 5
     }
   ]
 }

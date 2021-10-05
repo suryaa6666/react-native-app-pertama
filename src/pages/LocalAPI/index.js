@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Text,
@@ -13,17 +13,19 @@ import {
 
 import SVGUri from 'react-native-svg-uri';
 
-const Profile = () => {
+const Profile = ({nama, email, bidang}) => {
   return (
     <View style={styles.profileWrapper}>
       <SVGUri
-        source={{uri: 'https://avatars.dicebear.com/img/favicon.svg'}}
+        source={{
+          uri: `https://avatars.dicebear.com/api/miniavs/${email}.svg`,
+        }}
         style={styles.profileImage}
       />
       <View style={styles.profileDetailWrapper}>
-        <Text style={styles.fullName}> Nama Lengkap </Text>
-        <Text style={styles.email}> Email </Text>
-        <Text style={styles.field}> Bidang </Text>
+        <Text style={styles.fullName}> {nama} </Text>
+        <Text style={styles.email}> {email} </Text>
+        <Text style={styles.field}> {bidang} </Text>
       </View>
       <TouchableOpacity>
         <Text style={styles.deleteProfileText}>X</Text>
@@ -36,7 +38,12 @@ const LocalAPI = () => {
   const [nama, setNama] = useState('');
   const [email, setEmail] = useState('');
   const [bidang, setBidang] = useState('');
-  
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const submit = () => {
     const data = {
       nama,
@@ -44,24 +51,47 @@ const LocalAPI = () => {
       bidang,
     };
 
-
     Axios.post('http://10.0.2.2:3004/users', data).then(res => {
       console.log('response data : ', res.data);
       setNama('');
       setEmail('');
       setBidang('');
+      getData();
+    });
+  };
+
+  const getData = () => {
+    Axios.get('http://10.0.2.2:3004/users').then(res => {
+      console.log('response data : ', res.data);
+      setUsers(res.data);
     });
   };
 
   return (
     <View style={styles.viewWrapper}>
       <ScrollView>
+        <Text> {getData} </Text>
         <Text style={styles.title}> Aplikasi CRUD Profile Sederhana </Text>
         <Text style={styles.createMember}> masukkan nama anggota </Text>
         <View>
-          <TextInput placeholder="masukkan nama..." style={styles.textInput} value={nama} onChangeText={(value) => setNama(value)}/>
-          <TextInput placeholder="masukkan email..." style={styles.textInput} value={email} onChangeText={(value) => setEmail(value)}/>
-          <TextInput placeholder="masukkan bidang..." style={styles.textInput} value={bidang} onChangeText={(value) => setBidang(value)}/>
+          <TextInput
+            placeholder="masukkan nama..."
+            style={styles.textInput}
+            value={nama}
+            onChangeText={value => setNama(value)}
+          />
+          <TextInput
+            placeholder="masukkan email..."
+            style={styles.textInput}
+            value={email}
+            onChangeText={value => setEmail(value)}
+          />
+          <TextInput
+            placeholder="masukkan bidang..."
+            style={styles.textInput}
+            value={bidang}
+            onChangeText={value => setBidang(value)}
+          />
           <TouchableOpacity onPress={submit}>
             <View style={styles.buttonWrapper}>
               <Text style={styles.buttonText}> (+) tambah anggota </Text>
@@ -70,12 +100,16 @@ const LocalAPI = () => {
         </View>
         <View style={styles.horizontalLine} />
         <View>
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
+          {users.map(user => {
+            return (
+              <Profile
+                key={user.id}
+                nama={user.nama}
+                email={user.email}
+                bidang={user.bidang}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </View>
@@ -119,11 +153,13 @@ const styles = StyleSheet.create({
   },
   profileWrapper: {
     flexDirection: 'row',
+    marginVertical: 10,
   },
   profileImage: {
     width: 100,
     height: 100,
-    borderRadius: 100,
+    borderRadius: 1000,
+    overflow: 'hidden',
   },
   fullName: {
     fontSize: 20,
