@@ -8,12 +8,12 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Image,
+  Alert,
 } from 'react-native';
 
 import SVGUri from 'react-native-svg-uri';
 
-const Profile = ({nama, email, bidang, onPress}) => {
+const Profile = ({nama, email, bidang, onPress, onDelete}) => {
   return (
     <View style={styles.profileWrapper}>
       <TouchableOpacity onPress={onPress}>
@@ -29,7 +29,7 @@ const Profile = ({nama, email, bidang, onPress}) => {
         <Text style={styles.email}> {email} </Text>
         <Text style={styles.field}> {bidang} </Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onDelete}>
         <Text style={styles.deleteProfileText}>X</Text>
       </TouchableOpacity>
     </View>
@@ -89,6 +89,13 @@ const LocalAPI = () => {
     });
   };
 
+  const deleteData = item => {
+    Axios.delete(`http://10.0.2.2:3004/users/${item.id}`).then(res => {
+      console.log('deleted data : ', res.data);
+      getData();
+    });
+  };
+
   const selectUser = data => {
     setNama(data.nama);
     setEmail(data.email);
@@ -141,9 +148,32 @@ const LocalAPI = () => {
                 nama={user.nama}
                 email={user.email}
                 bidang={user.bidang}
-                onPress={() => {
-                  selectUser(user);
-                }}
+                onPress={() => selectUser(user)}
+                onDelete={() =>
+                  Alert.alert(
+                    'Peringatan',
+                    'Apakah anda ingin menghapus profile dengan nama ' +
+                      user.nama +
+                      '?',
+                    [
+                      {
+                        text: 'Tidak',
+                        onPress: () => {
+                          console.log('Tidak jadi hapus');
+                        },
+                      },
+                      {
+                        text: 'Ya',
+                        onPress: () => {
+                          console.log(
+                            'User dengan nama ' + user.nama + ' telah dihapus!',
+                          );
+                          deleteData(user);
+                        },
+                      },
+                    ],
+                  )
+                }
               />
             );
           })}
@@ -181,6 +211,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     backgroundColor: '#12CBC4',
     paddingVertical: 10,
+    marginVertical: 5,
     borderRadius: 100,
   },
   buttonText: {

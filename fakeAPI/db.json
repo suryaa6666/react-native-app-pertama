@@ -2,13 +2,13 @@
   "users": [
     {
       "nama": "Suryaaaaa",
-      "email": "suryaelidanto3@gmail.com",
+      "email": "mengapakubegini@gmail.com",
       "bidang": "Programmer",
       "id": 1
     },
     {
       "nama": "sadasdasd",
-      "email": "asd",
+      "email": "akuganteng@gmail.com",
       "bidang": "dsds",
       "id": 3
     },
@@ -29,18 +29,6 @@
       "email": "bambang@gmail.com",
       "bidang": "Petani",
       "id": 6
-    },
-    {
-      "nama": "",
-      "email": "",
-      "bidang": "",
-      "id": 7
-    },
-    {
-      "nama": "zzzxxx",
-      "email": "123",
-      "bidang": "456",
-      "id": 8
     }
   ]
 }
