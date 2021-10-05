@@ -13,15 +13,17 @@ import {
 
 import SVGUri from 'react-native-svg-uri';
 
-const Profile = ({nama, email, bidang}) => {
+const Profile = ({nama, email, bidang, onPress}) => {
   return (
     <View style={styles.profileWrapper}>
-      <SVGUri
-        source={{
-          uri: `https://avatars.dicebear.com/api/miniavs/${email}.svg`,
-        }}
-        style={styles.profileImage}
-      />
+      <TouchableOpacity onPress={onPress}>
+        <SVGUri
+          source={{
+            uri: `https://avatars.dicebear.com/api/miniavs/${email}.svg`,
+          }}
+          style={styles.profileImage}
+        />
+      </TouchableOpacity>
       <View style={styles.profileDetailWrapper}>
         <Text style={styles.fullName}> {nama} </Text>
         <Text style={styles.email}> {email} </Text>
@@ -39,25 +41,34 @@ const LocalAPI = () => {
   const [email, setEmail] = useState('');
   const [bidang, setBidang] = useState('');
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
+  const [buttonStatus, setButtonStatus] = useState({
+    text: 'tambah anggota',
+    buttonColor: '#00a8ff',
+  });
 
   useEffect(() => {
     getData();
   }, []);
 
-  const submit = () => {
-    const data = {
-      nama,
-      email,
-      bidang,
-    };
+  const data = {
+    nama,
+    email,
+    bidang,
+  };
 
-    Axios.post('http://10.0.2.2:3004/users', data).then(res => {
-      console.log('response data : ', res.data);
-      setNama('');
-      setEmail('');
-      setBidang('');
-      getData();
-    });
+  const postData = () => {
+    if (buttonStatus.text === 'tambah anggota') {
+      Axios.post('http://10.0.2.2:3004/users', data).then(res => {
+        console.log('response data : ', res.data);
+        setNama('');
+        setEmail('');
+        setBidang('');
+        getData();
+      });
+    } else if (buttonStatus.text === 'update anggota') {
+      updateData(selectedUser);
+    }
   };
 
   const getData = () => {
@@ -65,6 +76,25 @@ const LocalAPI = () => {
       console.log('response data : ', res.data);
       setUsers(res.data);
     });
+  };
+
+  const updateData = item => {
+    Axios.put(`http://10.0.2.2:3004/users/${item.id}`, data).then(res => {
+      console.log('updated data : ', res.data);
+      setNama('');
+      setEmail('');
+      setBidang('');
+      setButtonStatus({text: 'tambah anggota', buttonColor: '#00a8ff'});
+      getData();
+    });
+  };
+
+  const selectUser = data => {
+    setNama(data.nama);
+    setEmail(data.email);
+    setBidang(data.bidang);
+    setButtonStatus({text: 'update anggota', buttonColor: '#fbc531'});
+    setSelectedUser(data);
   };
 
   return (
@@ -92,9 +122,13 @@ const LocalAPI = () => {
             value={bidang}
             onChangeText={value => setBidang(value)}
           />
-          <TouchableOpacity onPress={submit}>
-            <View style={styles.buttonWrapper}>
-              <Text style={styles.buttonText}> (+) tambah anggota </Text>
+          <TouchableOpacity onPress={postData}>
+            <View
+              style={[
+                styles.buttonWrapper,
+                {backgroundColor: buttonStatus.buttonColor},
+              ]}>
+              <Text style={styles.buttonText}> {buttonStatus.text} </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -107,6 +141,9 @@ const LocalAPI = () => {
                 nama={user.nama}
                 email={user.email}
                 bidang={user.bidang}
+                onPress={() => {
+                  selectUser(user);
+                }}
               />
             );
           })}

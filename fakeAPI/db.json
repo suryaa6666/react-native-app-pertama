@@ -1,10 +1,10 @@
 {
   "users": [
     {
-      "id": 1,
-      "nama": "Surya",
-      "email": "suryaelidanto@gmail.com",
-      "bidang": "Programmer"
+      "nama": "Suryaaaaa",
+      "email": "suryaelidanto3@gmail.com",
+      "bidang": "Programmer",
+      "id": 1
     },
     {
       "nama": "sadasdasd",
@@ -23,6 +23,24 @@
       "email": "cintara@gmail.com",
       "bidang": "Desainer",
       "id": 5
+    },
+    {
+      "nama": "bambang",
+      "email": "bambang@gmail.com",
+      "bidang": "Petani",
+      "id": 6
+    },
+    {
+      "nama": "",
+      "email": "",
+      "bidang": "",
+      "id": 7
+    },
+    {
+      "nama": "zzzxxx",
+      "email": "123",
+      "bidang": "456",
+      "id": 8
     }
   ]
 }
